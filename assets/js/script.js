@@ -73,18 +73,18 @@ var questionsContainer = document.querySelector("#questionsContainer");
 var container = document.querySelector("#container");
 
 var timeLeft = 75;
-var holdTime = 0;
+var holdInterval = 0;
 var penalty = 10;
 var ulCreate = document.createElement("ul");
 
 // timer
-timer.addEvenetListener("click", function() {
-    if (holdTime === 0) {
-        holdTime = setInterval(function () {
+timer.addEventListener("click", function() {
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
             timeLeft--;
-            currentTime.textContent = "Time: " + secondsLeft;
+            currentTime.textContent = "Time: " + timeLeft;
 
-    if (secondsLeft <= 0) {
+    if (timeLeft <= 0) {
         clearInterval(holdInterval);
         allDone();
         currentTime.textContent = "Time's up!";
@@ -97,11 +97,11 @@ timer.addEvenetListener("click", function() {
 // display questions on page
 
 function render (questionIndex) {
-    questionsContainer.innterHTML = "";
-    ulCreate.innterHTML = "";
+    questionsContainer.innerHTML = "";
+    ulCreate.innerHTML = "";
 
     for (var i = 0; i < questions.length; i++) {
-        var userQuestion = questions[questionIndex].title;
+        var userQuestion = questions[questionIndex].question;
         var userChoices = questions[questionIndex].choices;
         questionsContainer.textContent = userQuestion;
     }
@@ -119,8 +119,9 @@ function compare(event) {
 
         if (element.matches("li")) {
             var createDiv = document.createElement("div");
+            createDiv.setAttribute("id", "createDiv");
 
-        if (element.textContent === questions[questionsIndex].answer) {
+        if (element.textContent === questions[questionIndex].answer) {
             score++;
             createDiv.textContent = "Correct!";
         } else {
@@ -133,7 +134,7 @@ function compare(event) {
 
     if (questionIndex >= questions.length) {
         allDone();
-        createDiv.textContent = "";
+        createDiv.textContent = "End of quiz!";
     } else {
         render(questionIndex);
     }
@@ -158,7 +159,7 @@ function allDone() {
     if (timeLeft >= 0) {
         var timeRemaining = timeLeft;
         var createP2 = document.createElement("p");
-        clearInterval(holdTime);
+        clearInterval(holdInterval);
         createP.textContent = "Your final score is: " + timeRemaining;
 
         questionsContainer.appendChild(createP2);
