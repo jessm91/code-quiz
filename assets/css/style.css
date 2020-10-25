@@ -6,12 +6,18 @@ h1 {
     text-align: center;
 }
 
+a {
+    color: magenta;
+    text-decoration: none;
+}
+
 li {
     color: white;
     background-color: purple;
     padding: 5px 15px;
     width: 80%;
     font-size: 20px;
+    border: none;
     border-radius: 15px;
 }
 
@@ -41,6 +47,7 @@ li:hover {
     font-size: 20px;
     margin-left: 33%;
     padding: 15px 30px;
+    border: none;
     border-radius: 15px;
 }
 
@@ -59,6 +66,7 @@ li:hover {
     width: auto;
     text-align: center;
     text-decoration: none;
+    border: none;
     border-radius: 15px;
 }
 
@@ -74,6 +82,7 @@ li:hover {
     top: 30%;
     right: 5%;
     text-align: center;
+    border: none;
     border-radius: 15px;
 }
 
@@ -87,6 +96,7 @@ li:hover {
     margin-left: 33%;
     padding: 15px 30px;
     font-size: 20px;
+    border: none;
     border-radius: 15px;
 }
 
