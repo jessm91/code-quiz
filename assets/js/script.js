@@ -1,4 +1,3 @@
-
 // Questions & Answers
 
 var questions = [
@@ -64,53 +63,151 @@ var questions = [
     },
 ];
 
-//CONSTANTS
+// other variables
+var score = 0;
+var questionIndex = 0;
 
-const CORRECT_BONUS = 5;
-const MAX_QUESTIONS = 12;
+var currentTime = document.querySelector("#currentTime");
+var timer = document.querySelector("#startButton")
+var questionsContainer = document.querySelector("#questionsContainer");
+var container = document.querySelector("#container");
 
-startGame = () => {
-    questionCounter = 0;
-    score = 0;
-    timer = 75;
-    availableQuestions = [...questions];
-    console.log(availableQuestions);
-    getNewQuestion();
-};
+var timeLeft = 75;
+var holdTime = 0;
+var penalty = 10;
+var ulCreate = document.createElement("ul");
 
-getNewQuestion = () => {
+// timer
+timer.addEvenetListener("click", function() {
+    if (holdTime === 0) {
+        holdTime = setInterval(function () {
+            timeLeft--;
+            currentTime.textContent = "Time: " + secondsLeft;
 
-    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS || timer ==== 0) {
-        // go to the end page
-        return window.location.assign("/end.html");
+    if (secondsLeft <= 0) {
+        clearInterval(holdInterval);
+        allDone();
+        currentTime.textContent = "Time's up!";
+        }
+    }, 1000);
     }
-    questionCounter++;
-    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions[questionIndex];
-    question.innerText = currentQuestion.question;
-
-    choices.forEach (choice => {
-        const number = choice.dataset["number"];
-        choice.innerText = currentQuestion["choice" + number];
-    });
-
-    availableQuestions.splice(questionIndex, 1);
-
-    acceptingAnswers = true;
-};
-
-choices.forEach(choice => {
-    choice.addEventListener("click", e => {
-        if (!acceptingAnswers) return;
-
-        acceptingAnswers = false;
-        const selectedChoice = e.target;
-        const selectedAnswer = selectedChoice.dataset["number"];
-        console.log(selectedAnswer);
-
-        getNewQuestion();
-    });
+    render(questionIndex);
 });
 
-startGame();
+// display questions on page
 
+function render (questionIndex) {
+    questionsContainer.innterHTML = "";
+    ulCreate.innterHTML = "";
+
+    for (var i = 0; i < questions.length; i++) {
+        var userQuestion = questions[questionIndex].title;
+        var userChoices = questions[questionIndex].choices;
+        questionsContainer.textContent = userQuestion;
+    }
+
+    userChoices.forEach(function (newItem) {
+        var listItem = document.createElement("li");
+        listItem.textContent = newItem;
+        questionsContainer.appendChild(ulCreate);
+        ulCreate.appendChild(listItem);
+        listItem.addEventListener("click", (compare));
+    })
+}
+function compare(event) {
+    var element = event.target;
+
+        if (element.matches("li")) {
+            var createDiv = document.createElement("div");
+
+        if (element.textContent === questions[questionsIndex].answer) {
+            score++;
+            createDiv.textContent = "Correct!";
+        } else {
+            timeLeft = timeLeft - penalty;
+            createDiv.textContent = "Wrong!";
+        }
+    }
+
+    questionIndex++;
+
+    if (questionIndex >= questions.length) {
+        allDone();
+        createDiv.textContent = "";
+    } else {
+        render(questionIndex);
+    }
+    questionsContainer.appendChild(createDiv);
+}
+
+function allDone() {
+    questionsContainer.innerHTML = "";
+    currentTime.innerHTML = "";
+
+    var createH1 = document.createElement("h1");
+    createH1.setAttribute("id", "createH1");
+    createH1.textContent = "All done!"
+
+    questionsContainer.appendChild(createH1);
+
+    var createP = document.createElement("p");
+    createP.setAttribute("id", "createP");
+
+    questionsContainer.appendChild(createP);
+
+    if (timeLeft >= 0) {
+        var timeRemaining = timeLeft;
+        var createP2 = document.createElement("p");
+        clearInterval(holdTime);
+        createP.textContent = "Your final score is: " + timeRemaining;
+
+        questionsContainer.appendChild(createP2);
+    }
+
+    var createLabel = document.createElement("label");
+    createLabel.setAttribute("id", "createLabel");
+    createLabel.textContent = "Enter your initials: ";
+
+    questionsContainer.appendChild(createLabel);
+
+    var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
+
+    questionsContainer.appendChild(createInput);
+
+    // submit button
+
+    var createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "submit");
+    createSubmit.setAttribute("id", "Submit");
+    createSubmit.textContent = "Submit";
+
+    questionsContainer.appendChild(createSubmit);
+
+    createSubmit.addEventListener("click", function () {
+        var initials = createInput.value;
+
+        if (initials === null) {
+            console.log("No value entered!");
+        } else {
+            var finalScore = {
+                initials: initials,
+                score: timeRemaining
+            }
+        console.log(finalScore);
+        var allScores = localStorage.getItem("allScores");
+        if (allScores === null) {
+            allScores = [];
+        } else {
+            allScores = JSON.parse(allScores);
+        }
+        allScores.push(finalScore);
+        var newScore = JSON.stringify(allScores);
+        localStorage.setItem("allScores", newScore);
+
+        window.location.replace("./Highscores.html");
+    }
+});
+}
