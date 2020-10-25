@@ -1,106 +1,113 @@
-:root {
-    background-color: white;
-    font-size: 62.5%;
-}
-
 * {
-    box-sizing: border-box;
     font-family: Arial;
-    margin: 0;
-    padding: 0;
-}
-
-h1,
-h2,
-h3,
-h4 {
-    margin-bottom: 1rem;
 }
 
 h1 {
-    font-size: 5.4rem;
-    color: black;
-    margin-bottom: 5rem;
-}
-
-h1 > span {
-    font-size: 2.4rem;
-    font-weight: 500;
-}
-
-h2 {
-    font-size: 4.2rem;
-    margin-bottom: 4rem;
-    font-weight: 700;
-}
-
-h3 {
-    font-size: 2.8rem;
-    font-weight: 500;
-}
-
-/* UTILITIES */
-
-.container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.container > * {
-    width: 100%;
-}
-
-.flex-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.flex-center {
-    justify-content: center;
-    align-items: center;
-}
-
-.justify-content {
-    justify-content: center;
-}
-
-.text-center {
     text-align: center;
 }
 
-.hidden {
-    display: none;
-}
-
-/* BUTTONS */
-
-.btn {
-    font-size: 1.8rem;
-    padding: 1rem 0;
-    width: 20rem;
-    text-align: center;
-    border: none;
-    margin-bottom: 1rem;
-    text-decoration: none;
+li {
     color: white;
     background-color: purple;
+    padding: 5px 15px;
+    width: 80%;
+    font-size: 20px;
     border-radius: 15px;
 }
 
-.btn:hover {
-    text-decoration: none;
-    color: white;
+li:hover {
     background-color: magenta;
 }
 
-.btn[disabled]:hover {
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
+#container {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    height: 500px;
+    width: 500px;
+}
+
+#questionsContainer {
+    margin: 20px;
+}
+
+#currentTime {
+    float: right;
+}
+
+#startButton {
+    color: white;
+    background-color: purple;
+    font-size: 20px;
+    margin-left: 33%;
+    padding: 15px 30px;
+    border-radius: 15px;
+}
+
+#startButton:hover {
+    background-color: magenta;
+}
+
+#backButton {
+    position: relative;
+    color: white;
+    background-color: purple;
+    font-size: 20px;
+    padding: 10px;
+    top: 30%;
+    left: 55%;
+    width: auto;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px;
+}
+
+#backButton:hover {
+    background-color: magenta;
+}
+
+#clearButton {
+    color: white;
+    background-color: purple;
+    font-size: 20px;
+    padding: 10px;
+    top: 30%;
+    right: 5%;
+    text-align: center;
+    border-radius: 15px;
+}
+
+#clearButton:hover {
+    background-color: magenta;
+}
+
+#submit {
+    color: white;
+    background-color: purple;
+    margin-left: 33%;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 15px;
+}
+
+#submit:hover {
+    background-color: magenta;
+}
+
+textarea {
+    margin: 20px;
+    width: 90%;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input {
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+#createDiv {
+    margin-top: 20px;
 }
